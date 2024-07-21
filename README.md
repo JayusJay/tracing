@@ -1,8 +1,7 @@
 # Tracing Test
 1. Ensure you have foundry setup.
 2. Run 
-`bash
- forge t --mc TracingTest -vvvv
+`forge t --mc TracingTest -vvvv
 `
 
 ## Foundry
