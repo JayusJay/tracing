@@ -1,8 +1,10 @@
 # Tracing Test
 1. Ensure you have foundry setup.
-2. Run 
-`forge t --mc TracingTest -vvvv
-`
+2. Rename .env.example file to .env
+3. Run:
+```shell
+$ forge t --mc TracingTest -vvvv
+```
 
 ## Foundry
 
