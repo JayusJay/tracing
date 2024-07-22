@@ -6,7 +6,7 @@ import { ISwapRouter } from "./interfaces/ISwapRouter.sol";
 import { IQuoterV2 } from "./interfaces/IQuoterV2.sol";
 import { IERC20 } from "forge-std/mocks/MockERC20.sol";
 
-contract TracingTest is Test { 
+contract TracingTest is Test {
     address public constant VITALIK = 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045;
     address public constant UNISWAP_V3_ROUTER = 0xE592427A0AEce92De3Edee1F18E0157C05861564;
     address public constant UNISWAP_QUOTER_V2 = 0x61fFE014bA17989E743c5F6cB21bF9697530B21e;
@@ -42,19 +42,18 @@ contract TracingTest is Test {
         vm.startPrank(VITALIK);
         wethToken.approve(UNISWAP_V3_ROUTER, swapAmount);
 
-       uint256 amountOutMin = _getQuote();
+        uint256 amountOutMin = _getQuote();
 
-         ISwapRouter.ExactInputSingleParams memory params =
-            ISwapRouter.ExactInputSingleParams({
-                tokenIn: WETH,
-                tokenOut: USDC,
-                fee: WETH_USDC_POOL_FEE,
-                recipient: msg.sender,
-                deadline: block.timestamp,
-                amountIn: swapAmount,
-                amountOutMinimum: amountOutMin,
-                sqrtPriceLimitX96: 0
-            });
+        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams({
+            tokenIn: WETH,
+            tokenOut: USDC,
+            fee: WETH_USDC_POOL_FEE,
+            recipient: msg.sender,
+            deadline: block.timestamp,
+            amountIn: swapAmount,
+            amountOutMinimum: amountOutMin,
+            sqrtPriceLimitX96: 0
+        });
 
         swapRouter.exactInputSingle(params);
 
@@ -62,7 +61,7 @@ contract TracingTest is Test {
     }
 
     function _getQuote() internal returns (uint256) {
-      IQuoterV2.QuoteExactInputSingleParams memory quoteParams =  IQuoterV2.QuoteExactInputSingleParams({
+        IQuoterV2.QuoteExactInputSingleParams memory quoteParams = IQuoterV2.QuoteExactInputSingleParams({
             tokenIn: WETH,
             tokenOut: USDC,
             amountIn: 1e18,
@@ -70,9 +69,8 @@ contract TracingTest is Test {
             sqrtPriceLimitX96: 0
         });
 
-        ( uint256 amountOut, , , ) = quoterV2.quoteExactInputSingle(quoteParams);
+        (uint256 amountOut,,,) = quoterV2.quoteExactInputSingle(quoteParams);
 
         return amountOut;
     }
-
 }
